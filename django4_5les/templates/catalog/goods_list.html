@@ -1,0 +1,19 @@
+{% extends 'model.html' %}
+{% block content %}
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Weight</th>
+        </tr>
+        {% for product in catalog %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.weight }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'catalog:good_create' %}"
+       class="btn btn-success">Добавить</a>
+{% endblock %}
