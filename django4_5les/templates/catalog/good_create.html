@@ -1,15 +1,2 @@
-{% extends 'model.html' %}
-{% load staticfiles %}
-{% block content %}
-    <form action="{% url 'catalog:good_create' %}" method="post"
-          enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="card">
-            <div class="card-header">Add product</div>
-            <div class="card-body">{{ form.as_p }}</div>
-            <div class="card-footer"><input class="form-control btn btn-info"
-                                            type="submit" value="Добавить">
-            </div>
-        </div>
-    </form>
-{% endblock %}
+{% csrf_token %}
+{{ form.as_p }}

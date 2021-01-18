@@ -1,5 +1,7 @@
-from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 from django.shortcuts import render
+from django.template.loader import render_to_string
+
 from catalog.forms import CatalogForm
 from catalog.models import Catalog
 
@@ -10,12 +12,24 @@ def goods_list(request):
 
 
 def good_create(request):
+    data = dict()
     if request.method == 'POST':
         form = CatalogForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/')
-    else:
-        form = CatalogForm()
+            data['form_is_valid'] = True
+            products = Catalog.objects.all()
+            data['products_html'] = render_to_string('catalog/list.html',
+                                                     {'catalog': products})
+        else:
+            data['form_html'] = render_to_string('catalog/good_create.html',
+                                                 {'form': form},
+                                                 request=request)
 
-    return render(request, 'catalog/good_create.html', {'form': form})
+    else:
+        data['form_is_valid'] = False
+        data['form_html'] = render_to_string('catalog/good_create.html',
+                                             {'form': CatalogForm()},
+                                             request=request)
+
+    return JsonResponse(data)

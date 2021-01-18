@@ -1,0 +1,12 @@
+<tr>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Weight</th>
+</tr>
+{% for product in catalog %}
+    <tr>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.weight }}</td>
+    </tr>
+{% endfor %}
